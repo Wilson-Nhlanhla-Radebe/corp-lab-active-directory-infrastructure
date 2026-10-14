@@ -1,0 +1,13 @@
+# NON-DEPLOYABLE PLACEHOLDER TEMPLATE — replace locally only.
+# Do NOT commit real private/public keys or complete live peer configurations.
+# Example sections only. Confirm interface names, routes and ports in your lab.
+
+[Interface]
+Address = <LAB_CLIENT_TUNNEL_IP/CIDR>
+PrivateKey = <KEEP_REAL_PRIVATE_KEY_OUTSIDE_GIT>
+
+[Peer]
+PublicKey = <VERIFIED_SERVER_PUBLIC_KEY>
+Endpoint = <SERVER_ENDPOINT_HOST_OR_IP>:<UDP_PORT>
+AllowedIPs = <ONLY_REQUIRED_LAB_NETWORKS>
+PersistentKeepalive = 25

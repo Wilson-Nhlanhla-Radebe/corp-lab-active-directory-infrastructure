@@ -1,0 +1,51 @@
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.ppk
+id_rsa*
+id_ed25519*
+*.ovpn
+*.conf
+!config-examples/*.example
+!config-examples/*.conf.example
+wg-privatekey*
+wireguard-private*
+oci.config
+.oci/
+
+# Backups, dumps, exports and logs
+*.bak
+*.backup
+*.old
+*.dump
+*.sql.gz
+*_dump.sql
+*-dump.sql
+backup*.sql
+dump*.sql
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.log
+*.evtx
+*.dmp
+*.pcap
+*.pcapng
+
+# Editor / OS artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local evidence working area
+screenshots/private/
+evidence/private/
