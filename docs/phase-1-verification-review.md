@@ -1,40 +1,36 @@
 # Phase 1 verification review
 
-**Source verification date:** 21 September 2026  
-**Additional screenshot evidence:** through 6 October 2026  
-**Review stance:** preserve source results, but don't overstate incomplete test coverage.
+**Baseline verification date:** 21 September 2026
 
-## Evidence-supported outcomes
+**Additional evidence captured:** through 6 October 2026
 
-| Area | Interpretation |
-|---|---|
-| AD domain and departmental structure | Reported functional; OU names and user/group administration are shown in screenshots. |
-| GLPI LDAP test | Screenshot directly shows TCP/389, base-DN, LDAP URI, bind and search checks passing, with 23 entries found. |
-| GLPI user import/synchronization | Screenshots and report describe imported directory accounts and synchronization. |
-| GLPI user authentication | Source report records PASS for representative IT, Finance and Marketing users. |
-| Ticket creation | Source report records successful ticket submission and ticket visibility; it marks whether a ticket ID was verified as NOT TESTED. Ticket lifecycle screenshots include ticket resolution evidence. |
-| Account lifecycle | Screenshots show account reset, disabling/deactivation, offboarding request and GLPI user-record actions. |
-| Ubuntu service stack / connectivity | Source matrix records the relevant services and ports as PASS at time of baseline. |
-| SMB/file-access matrix | Partially verified. Several tests are NOT TESTED, and the Finance PASS row conflicts with a screenshot documenting Finance access denied. |
-| Cross-department negative test | NOT TESTED in the source matrix. |
-| User RDP sessions | Known issue — blank/loading desktop; unresolved. |
-| Windows client successful domain join | Not established by the attached Phase 1 evidence and therefore not claimed here. |
+**Status update:** RDP working as of 14 October 2026
 
-## Inconsistency in the original verification report
+## Results supported by the project evidence
 
-The source report labels the overall Phase 1 baseline `PASS` and marks several summary rows PASS, while individual tables retain placeholder values (`[PASS/FAIL/NOT TESTED]`), a NOT TESTED ticket-ID check, and multiple NOT TESTED folder-access cases. It also states that final verification is pending in an earlier section, then records a baseline pass later.
+| Area | Status | Evidence or limitation |
+|---|---|---|
+| AD domain and departmental structure | Demonstrated | `corp.lab`, five departmental OUs and directory administration are shown. |
+| GLPI LDAP integration | Pass at capture time | Test screen shows TCP/389, Base DN, LDAP URI, bind and search succeeded; 23 entries found. |
+| GLPI directory import and synchronization | Demonstrated | Screenshots show imported users and synchronization activity. |
+| Representative GLPI user authentication | Pass recorded | The lab verification records successful authentication for representative IT, Finance and Marketing users. |
+| Ticket workflow | Demonstrated | Screenshots show ticket submission/visibility and ticket resolution. The initial verification worksheet did not record the ticket-ID check as tested. |
+| Account lifecycle | Demonstrated | Evidence shows account reset/disablement and GLPI offboarding activity. |
+| Ubuntu application stack and connectivity | Pass recorded at baseline | Apache2, PHP, MariaDB, GLPI and the documented ports were recorded as functional at the time. |
+| Departmental shared-folder access | Partially verified | Configuration is shown, but some department-level access tests are not recorded. The Finance allow/deny result is inconsistent across the available records. |
+| Domain-user RDP sessions | Resolved | Domain-user desktop sessions were working as of 14 October 2026. |
+| Windows client domain join | Not verified | No successful domain-join result is included in this evidence set. |
+| Current OCI resource state | Not checked during this update | The screenshots are historical captures and do not confirm the instances are running now. |
 
-This repository does not silently resolve these contradictions by assuming the missing tests passed. The best-supported summary is:
+## File-access validation gap
 
-> **Core Phase 1 services and the GLPI/LDAP workflow were reported operational and have supporting screenshots; complete access-control verification is unfinished, and the RDP issue remains open.**
+The verification worksheet has incomplete entries for the IT, HR, Marketing and Management share-access tests and the negative cross-department test. It marks the Finance test as passed, while a separate screenshot records a Finance access-denied result. For this reason, the departmental access-control implementation is documented as configured, but the effective-access result is not considered fully verified.
 
-## Recommended closure tests
+## Outstanding validation items
 
-1. Re-check the domain controller, DNS and service states if the OCI resources still exist.
-2. Verify group membership for one demo user in each department.
-3. Test each user's own folder access and at least one unauthorized cross-department folder; record both allow and deny results.
-4. Confirm actual SMB share ACLs and NTFS ACLs separately.
-5. Re-test GLPI LDAP connectivity and login if the lab is live, preferably with secure LDAP and certificate validation.
-6. Verify ticket ID generation and final ticket state.
-7. Investigate RDP in a separate troubleshooting cycle without granting broad administrator membership as a workaround.
-8. Record the test date, actual result and sanitized screenshot for each case.
+1. Test one normal account from each department against its own share.
+2. Test at least one user against a restricted share outside their department.
+3. Record the result alongside both share ACL and NTFS ACL evidence.
+4. Confirm ticket-reference generation if that requirement is needed for the portfolio.
+5. Capture a successful Windows client domain join if that work is completed.
+6. Query OCI and service status directly before making claims about current availability.

@@ -1,8 +1,8 @@
 # File services and access control
 
-## Reported configuration
+## Configuration
 
-The Windows Server's `C:` drive contains a top-level Company Folder / Company Data directory and departmental subfolders for:
+The Windows Server hosts a top-level Company Folder / Company Data directory with departmental subfolders for:
 
 - IT
 - HR
@@ -10,9 +10,9 @@ The Windows Server's `C:` drive contains a top-level Company Folder / Company Da
 - Management
 - Finance
 
-SMB share creation, share ACL inspection, mapped-drive configuration and file/folder permissions are represented in the supplied screenshots. The attached report says inherited ACL entries were removed where necessary and permissions were assigned to departmental security groups rather than directly to each individual user.
+Screenshots document SMB share creation, share-ACL inspection, mapped-drive configuration and folder permissions. Departmental security groups are used as the intended permission-management unit.
 
-## Intended access model
+## Access model
 
 ```text
 Departmental users
@@ -22,32 +22,19 @@ Department security group (for example, GG_Finance)
 Department folder / SMB share
 ```
 
-This model is easier to maintain because onboarding/offboarding primarily changes group membership, not every folder ACL.
+Group-based access makes onboarding and offboarding easier to maintain because resource permissions can follow changes in group membership.
 
-## Important validation caveat
+## Validation status
 
-The evidence includes a screenshot titled as a Finance user being unable to access the Finance folder. The verification matrix later marks the Finance access test PASS, while the IT/HR/Marketing/Management tests and the negative cross-department test are marked NOT TESTED. These statements do not support an unconditional claim that all folder permissions work correctly.
+The available evidence demonstrates share and ACL configuration, but does not establish effective access for every department. A Finance-user screenshot shows access denied, while the verification worksheet records one Finance access test as PASS. Those results conflict, so Finance access requires a repeat test. The current evidence also does not record the IT, HR, Marketing and Management positive tests or the negative cross-department test.
 
-Treat the present result as **configured, partially evidenced, and requiring a complete access matrix**. Re-test with one normal user from every department:
-
-| Test | Expected result | Current documented state |
+| Test | Expected result | Recorded status |
 |---|---|---|
-| IT user → IT share | Allow | Not tested in the source matrix |
-| HR user → HR share | Allow | Not tested in the source matrix |
-| Marketing user → Marketing share | Allow | Not tested in the source matrix |
-| Management user → Management share | Allow | Not tested in the source matrix |
-| Finance user → Finance share | Allow | Source report marks PASS, but separate screenshot records an access-denied scenario; retest required |
-| Each user → another department's restricted folder | Deny, unless explicitly authorized | Not tested in the source matrix |
+| IT user → IT share | Allow | Not tested in available matrix |
+| HR user → HR share | Allow | Not tested in available matrix |
+| Marketing user → Marketing share | Allow | Not tested in available matrix |
+| Management user → Management share | Allow | Not tested in available matrix |
+| Finance user → Finance share | Allow | Conflicting evidence; repeat test needed |
+| User → restricted share outside their department | Deny, unless explicitly authorised | Not tested in available matrix |
 
-## Suggested evidence capture
-
-Capture, with demo accounts only:
-
-1. `Get-SmbShare` output.
-2. `Get-SmbShareAccess -Name <share>` output.
-3. NTFS Security tab for each departmental folder.
-4. A successful access test for the correct department.
-5. A failed access test for an unauthorized department.
-6. The test date, account department and share tested.
-
-Redact hostnames, public IPs, production identifiers and any non-lab names before publishing screenshots.
+For a complete validation, compare SMB share permissions and NTFS permissions, then test with ordinary department accounts. Record the effective result for each allow and deny case.

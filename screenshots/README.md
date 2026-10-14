@@ -1,5 +1,5 @@
-# Curated screenshot evidence
+# Evidence screenshots
 
-Ten key screenshots are included in the repository to demonstrate AD structure, file-share permissions, the GLPI LDAP test, imported/synchronized users, a resolved ticket, an account disabled during offboarding, OCI security-rule configuration and a GLPI offboarding record.
+Ten screenshots are included to demonstrate the Active Directory structure, departmental file services, GLPI LDAP integration, directory synchronization, ticket handling, account disablement, Oracle Cloud security rules and offboarding workflow.
 
-The screenshots were supplied by the project owner. Browser URL bars containing the lab public IP or an OCI resource identifier were redacted before publication. A separate companion archive contains all 33 sanitized screenshots supplied in the original evidence ZIP.
+Browser address details and the Oracle Cloud resource URL have been redacted in the relevant images. The screenshots show the environment at capture time and do not establish current cloud availability.

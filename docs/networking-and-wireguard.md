@@ -1,37 +1,32 @@
 # Networking and cloud security rules
 
-## Phase 1 paths described by the report
+## Documented network flows
 
-| Flow | Port / protocol | Evidence / purpose |
+| Flow | Port / protocol | Purpose and status |
 |---|---|---|
-| Admin host → Ubuntu Server | TCP 22 / SSH | Ubuntu administration; SSH access issue resolved by selecting the correct key and restricting file permissions to `0600` |
-| Admin host → Ubuntu Server / GLPI | TCP 80 / HTTP | Browser access documented in the lab; public IP and URL were redacted from screenshots |
-| GLPI host → `DC01` | TCP 389 / LDAP | GLPI test screenshot shows successful connection, bind and search |
-| Windows domain resources | SMB, AD/DNS ports as configured | Departmental share and AD administration screenshots supplied; don't infer a complete port inventory from the screenshots alone |
+| Administration host → Ubuntu Server | TCP 22 / SSH | Ubuntu administration; SSH access succeeded after selecting the correct key and restricting its permissions to `0600` |
+| Administration host → GLPI host | TCP 80 / HTTP | Browser access used by the lab; address details are redacted in screenshots |
+| GLPI host → `DC01` | TCP 389 / LDAP | Captured LDAP test shows successful connection, bind and search |
+| Corporate subnet → DNS service | TCP/UDP 53 as required | A cloud rule screenshot documents DNS traffic from `10.0.0.0/24`; the complete current rule set is not represented by that single image |
+| Windows domain resources | AD DS, DNS and SMB-related traffic | Departmental share and Active Directory administration are documented; the table is not a complete Active Directory port inventory |
 
-## Oracle Cloud network-security notes
+## Network security
 
-The source report says the required security rules were reviewed and ports 22, 80 and 389 were opened for the lab's intended flows. One screenshot shows an ingress rule sourced from `10.0.0.0/24` for TCP 53 with a description indicating AD DNS from the corporate subnet. The full current NSG/security-list configuration has not been independently re-queried.
+- Restrict SSH, RDP and directory-management traffic to trusted source ranges or a private VPN.
+- Do not broadly expose AD DS, LDAP, SMB or RDP to the public internet.
+- Use the minimum source CIDRs and ports required for each flow.
+- Review cloud network-security rules alongside the guest operating-system firewall.
+- Use HTTPS for GLPI and LDAPS/StartTLS with certificate validation for directory traffic outside an isolated lab.
 
-Best practice for a public portfolio lab:
+## SSH access troubleshooting
 
-- Restrict management and directory ports to the required private subnet or VPN; do not broadly expose AD DS, LDAP, SMB or RDP to the internet.
-- Use the minimum source CIDRs and ports needed for each flow.
-- Verify both cloud security rules and the guest OS firewall.
-- Do not publish public IPs, full OCI OCIDs, tenancy identifiers or credential-bearing OCI config files.
-- If the project is kept running, review ongoing cost and shut down/delete resources when no longer needed.
-
-## SSH key handling
-
-The report states the initial SSH connection failed because the intended key was not explicitly selected and the private key permissions were too open (`066`). The working resolution was to reference the intended key and change its permissions:
+The SSH connection initially selected the wrong key, and the intended private key had permissions that were too open (`066`). Selecting the correct key and restricting permissions resolved the issue:
 
 ```bash
 chmod 600 <private-key-file>
 ssh -i <private-key-file> ubuntu@<server-address>
 ```
 
-The placeholders above are intentionally not real file or address values. Never commit private keys.
+## WireGuard
 
-## Related WireGuard notes
-
-Earlier project notes referenced a tunnel called `corp_lab_tunnel`, UDP port `57058`, and tunnel-side addresses `10.10.0.1` / `10.10.0.2`. The attached Phase 1 report and screenshots do not prove a working tunnel or handshake. Treat this as a historical side note until the current interface, peers, routes, DNS and last-handshake status are verified.
+Earlier lab notes reference a tunnel named `corp_lab_tunnel`, UDP port `57058`, and tunnel addresses `10.10.0.1` and `10.10.0.2`. This repository does not include a current peer-handshake capture, route table or DNS verification for the tunnel, so its present operational state is not established here.

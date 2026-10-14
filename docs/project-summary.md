@@ -1,20 +1,20 @@
-# Project summary — CV / portfolio use
+# Project summary
 
-## Project title
-**Enterprise IT Infrastructure Lab — Active Directory, File Services and GLPI Integration**
+## Enterprise IT Infrastructure Lab — Active Directory, File Services and GLPI
 
-## Portfolio summary
-Built a simulated corporate IT environment in Oracle Cloud Infrastructure using Windows Server 2022 Standard and Ubuntu Server. Configured an Active Directory `corp.lab` domain with five departmental organisational units, departmental user/group structure and SMB shared-folder permissions. Deployed Apache2, PHP, MariaDB and GLPI on Ubuntu Server, then configured GLPI's LDAP integration with Active Directory.
+Built a simulated corporate IT environment in Oracle Cloud Infrastructure using Windows Server 2022 Standard and Ubuntu Server. Configured the `corp.lab` Active Directory domain with five departmental OUs, demonstration users and security groups, and departmental SMB resources using group-based permissions.
 
-The supplied LDAP verification screenshot records successful TCP connectivity to `dc01.corp.lab:389`, base DN and LDAP URI checks, bind authentication and directory search (23 entries returned). Additional evidence documents directory imports/synchronization, ticket submission and resolution, account reset/deactivation and offboarding workflows. Troubleshot SSH key permissions, OCI security rules, web access behavior, LDAP name resolution and group synchronization.
+Deployed Apache2, PHP, MariaDB and GLPI on Ubuntu Server and integrated GLPI with Active Directory through LDAP. The captured LDAP test passed TCP connectivity, Base DN and URI checks, bind authentication and directory search, returning 23 entries. Additional screenshots document directory imports/synchronization, ticket resolution, account disablement and offboarding activity.
 
-## Recommended resume bullets
+The lab also provided troubleshooting experience across SSH key selection and permissions, cloud network-security rules, browser access behavior, hostname resolution, directory synchronization and Remote Desktop. Domain-user RDP sessions were working as of 14 October 2026. The full departmental share allow/deny matrix remains incomplete, and a successful Windows client domain join is not established by the current evidence.
 
-- Deployed and documented a cloud-hosted Windows Server 2022 / Active Directory lab with departmental OUs, user/group structure and SMB file services.
-- Configured GLPI on Ubuntu Server with Apache2, PHP and MariaDB, and validated an LDAP connection to Active Directory including bind authentication and directory search.
-- Documented end-to-end ITSM examples covering ticket submission/resolution, directory user synchronization, account reset and offboarding.
-- Investigated infrastructure issues across SSH authentication, network security rules, name resolution, LDAP group mapping and RDP sessions.
+## Skills demonstrated
 
-## Be accurate in interviews
-
-Mention that RDP domain-user sessions remained unresolved and the department-wide folder allow/deny matrix was incomplete in the source verification record. Do not claim a successful Windows client domain join unless you capture current evidence for it.
+- Windows Server 2022 and Active Directory administration
+- OU, user and security-group management
+- SMB shares and access-control configuration
+- Linux server administration
+- Apache2, PHP, MariaDB and GLPI deployment
+- LDAP connectivity and authentication testing
+- IT service-management and account lifecycle workflows
+- Cloud networking and troubleshooting

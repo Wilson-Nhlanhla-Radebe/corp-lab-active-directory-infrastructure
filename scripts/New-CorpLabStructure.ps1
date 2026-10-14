@@ -32,7 +32,7 @@ foreach ($department in $departments) {
         Write-Host "OU already exists: $ouDN"
     }
 
-    # The supplied AD evidence shows group names such as GG_Finance in the domain root.
+    # Departmental access groups use names such as GG_Finance at the domain root.
     $groupName = "GG_$department"
     $existingGroup = Get-ADGroup -Filter "Name -eq '$groupName'" -ErrorAction SilentlyContinue
     if (-not $existingGroup) {

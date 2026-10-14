@@ -1,17 +1,17 @@
 # Runbook: Windows client domain-join troubleshooting
 
-> This runbook is for future verification. The attached Phase 1 implementation report does not establish a successful Windows client domain join, so do not describe this task as completed until it is demonstrated.
+Use this sequence to diagnose a Windows client that cannot join `corp.lab`. The project evidence does not currently include a verified successful join, so validate the result separately from the Domain Controller and GLPI tests.
 
-## 1. Confirm the target
+## 1. Confirm the client configuration
 
-On the Windows Pro client, record the date, network path (LAN/VPN), adapter and DNS servers. Do not include public IPs or credentials in repository evidence.
+Record the adapter and DNS configuration and confirm the client is using the intended Active Directory DNS server.
 
 ```powershell
 ipconfig /all
 Get-NetIPConfiguration
 ```
 
-The client must use the intended Active Directory DNS server for the join flow; querying a public resolver will not locate private AD records.
+A public resolver will not return the private AD records needed for domain discovery.
 
 ## 2. Test DNS before changing anything
 
@@ -21,7 +21,7 @@ nslookup dc01.corp.lab
 nslookup -type=SRV _ldap._tcp.dc._msdcs.corp.lab
 ```
 
-A correct A record alone is not sufficient. The SRV query should return the domain controller locator record for the lab domain.
+The SRV lookup should return the domain-controller locator record for the lab domain.
 
 ## 3. Check service reachability
 
@@ -31,18 +31,18 @@ Test-NetConnection dc01.corp.lab -Port 389
 nltest /dsgetdc:corp.lab
 ```
 
-Use the actual current DC hostname and the necessary ports. AD DS uses additional protocols/ports beyond LDAP; don't assume TCP 389 alone proves domain join readiness.
+Active Directory uses additional protocols and ports beyond LDAP; TCP 389 alone does not prove that a domain join can succeed.
 
 ## 4. Check time, account and domain settings
 
-- Confirm client date/time is close to the domain controller's time.
+- Confirm the client clock is close to the Domain Controller's time.
 - Confirm the Windows edition supports joining an AD domain.
-- Confirm the join account has the required delegated permission.
-- Capture the exact error message before changing configuration.
+- Confirm the join account has the required permission.
+- Capture the exact error before changing configuration.
 
 ## 5. Perform and verify the join
 
-Only proceed when DNS and locator lookups work. After the join and reboot, verify:
+After DNS and domain-controller discovery succeed, attempt the join and reboot. Then verify:
 
 ```powershell
 whoami /upn
@@ -50,4 +50,4 @@ whoami /upn
 (Get-CimInstance Win32_ComputerSystem).Domain
 ```
 
-Record `PASS` only if the client reports domain membership and a normal domain-user sign-in is demonstrated. Redact user names/UPNs and network details from public evidence.
+A successful result should show domain membership and a normal domain-user sign-in.

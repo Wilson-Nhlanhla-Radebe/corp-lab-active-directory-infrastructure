@@ -1,7 +1,6 @@
 # Secrets and local environment files
 .env
 .env.*
-!.env.example
 *.pem
 *.key
 *.p12
@@ -11,8 +10,6 @@ id_rsa*
 id_ed25519*
 *.ovpn
 *.conf
-!config-examples/*.example
-!config-examples/*.conf.example
 wg-privatekey*
 wireguard-private*
 oci.config

@@ -2,55 +2,49 @@
 
 ## Application stack
 
-The attached Phase 1 report describes Ubuntu Server hosting the complete GLPI application stack:
+Ubuntu Server hosts the following GLPI stack:
 
-- **Apache2** — web serving.
-- **PHP** — GLPI application runtime.
-- **MariaDB** — database backend.
-- **GLPI** — IT service-management application.
+- **Apache2:** web server.
+- **PHP:** application runtime.
+- **MariaDB:** database backend.
+- **GLPI:** IT service-management application.
 
-The report records browser access from the bare-metal host over HTTP/TCP 80 and SSH administration over TCP 22. The documented LDAP path between GLPI and the Domain Controller uses TCP 389.
+The lab used HTTP/TCP 80 for browser access, SSH/TCP 22 for Ubuntu administration and LDAP/TCP 389 for directory communication.
 
-## LDAP configuration evidence
+## LDAP connection test
 
-The supplied `LDAP Test.png` screenshot (published as [`glpi-ldap-connection-test.jpg`](../screenshots/glpi-ldap-connection-test.jpg)) displays the following successful checks:
+The captured [GLPI LDAP test](../screenshots/glpi-ldap-connection-test.jpg) shows:
 
-1. TCP stream to `dc01.corp.lab` on port 389.
-2. Base DN `DC=corp,DC=lab` configured.
-3. LDAP URI check succeeded.
+1. TCP connection to `dc01.corp.lab` on port 389 succeeded.
+2. Base DN `DC=corp,DC=lab` was configured.
+3. LDAP URI validation succeeded.
 4. Bind authentication succeeded.
-5. Search succeeded with 23 entries found.
+5. Directory search succeeded and returned 23 entries.
 
-Other evidence shows directory users imported, user information synchronized, user authentication, and ticket creation/resolution workflows. This represents the captured test result at the time the screenshots were taken; it does not prove that the VM or services are currently live.
+Other screenshots show directory users imported into GLPI, user synchronization, ticket handling and offboarding-related user records. These images represent the system at capture time rather than current cloud health.
 
 ## Security considerations
 
-The captured environment uses LDAP on TCP 389 and HTTP on TCP 80. These may be convenient in an isolated lab, but they are not a safe default for a service reachable over untrusted networks.
+The captured configuration uses LDAP on TCP 389 and HTTP on TCP 80. For any persistent or externally accessible deployment:
 
-For a production-like environment:
+- Use HTTPS with a valid certificate for the GLPI web interface.
+- Use LDAPS or StartTLS with certificate validation for directory traffic.
+- Use a dedicated least-privilege LDAP bind identity.
+- Restrict cloud security rules to the systems and source networks that require access.
+- Keep account lifecycle tests limited to demonstration identities.
 
-- Use HTTPS with a valid certificate for the GLPI web UI.
-- Prefer LDAPS or StartTLS with certificate validation for directory traffic.
-- Use a dedicated least-privilege LDAP bind identity, not a domain administrator.
-- Restrict security-rule source ranges to the required systems or private networks.
-- Never publish the actual public IP, bind password, database credential, session cookie or browser export.
-- Keep GLPI accounts and offboarding tests limited to demo identities.
+## Troubleshooting notes
 
-## Troubleshooting notes from the report
+- LDAP connectivity initially failed while network rules and hostname resolution were investigated.
+- Adjusting the relevant network and name-resolution settings allowed the LDAP test to pass.
+- Some user group associations required manual correction in GLPI before synchronization was repeated.
 
-- LDAP initially failed while OCI security rules and host resolution were reviewed.
-- After network and hostname-resolution adjustments, the GLPI test succeeded.
-- Initial group mapping/synchronization did not show all expected memberships. AD membership was checked, affected users were manually associated in GLPI where needed, then synchronization was retried.
-- The report includes screenshots of tickets submitted and resolved through GLPI, including access and offboarding scenarios.
+## Validation commands
 
-## Example validation commands
-
-Run from the Ubuntu host only when it is still available and the command matches the current DNS/network design:
+Run from Ubuntu when the host is available and the current DNS/network configuration matches the lab:
 
 ```bash
 getent hosts dc01.corp.lab
 nc -vz dc01.corp.lab 389
 systemctl is-active apache2 mariadb
 ```
-
-Do not place real LDAP bind secrets on the command line, in shell history, or in this repository.

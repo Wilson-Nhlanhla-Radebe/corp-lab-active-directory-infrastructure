@@ -1,17 +1,15 @@
 # Active Directory design
 
-## Domain and roles
+## Domain and server roles
 
-- Domain: `corp.lab`
-- Domain controller: `DC01`
-- Platform: Windows Server 2022 Standard
-- Services: Active Directory Domain Services (AD DS) and DNS
-
-The attached implementation report states that the domain controller was deployed and promoted successfully. The screenshot evidence shows the `corp.lab` namespace and departmental structure in Active Directory Users and Computers.
+- **Domain:** `corp.lab`
+- **Domain controller:** `DC01`
+- **Platform:** Windows Server 2022 Standard
+- **Services:** Active Directory Domain Services (AD DS) and DNS
 
 ## Departmental organisational units
 
-| Department | Accounts listed in source report |
+| Department | Demonstration accounts |
 |---|---:|
 | IT | 4 |
 | HR | 4 |
@@ -20,11 +18,11 @@ The attached implementation report states that the domain controller was deploye
 | Finance | 3 |
 | **Total** | **19** |
 
-The departmental OUs organise accounts by business function. The full list of display names from the source report is not duplicated here to keep the public portfolio focused on the design rather than account-level personal data.
+The five OUs organise demonstration accounts by business function. Account display names are not repeated here; the screenshots focus on the directory structure and management tasks.
 
 ## Security groups and access model
 
-Screenshots show a departmental security group named `GG_Finance` and the report describes departmental groups for access management. The intended pattern is:
+The departmental access pattern uses global security groups such as `GG_Finance` to grant access to departmental shared resources.
 
 ```text
 Department OU
@@ -33,11 +31,11 @@ Department OU
                  └── Department share permissions
 ```
 
-The attached screenshot shows `GG_Finance` as a group in the domain and a demonstration user as a member. Group naming and actual object placement should be checked against the live domain before re-running any script.
+This approach centralises permission management around group membership rather than individual user ACLs.
 
-## Safe starter script
+## Lab automation script
 
-[`../scripts/New-CorpLabStructure.ps1`](../scripts/New-CorpLabStructure.ps1) is an idempotent starter that creates five departmental OUs and global security groups named `GG_<Department>` at the domain root if absent. It does not create users, set passwords, assign memberships, modify share ACLs, or change Group Policy. Review the target domain before using it.
+[`../scripts/New-CorpLabStructure.ps1`](../scripts/New-CorpLabStructure.ps1) creates the five departmental OUs and corresponding `GG_<Department>` global security groups when they are absent. It does not create users, set passwords, assign group memberships, modify share ACLs or change Group Policy.
 
 ```powershell
 Import-Module ActiveDirectory
@@ -45,7 +43,7 @@ Get-ADDomain | Select-Object DNSRoot, DistinguishedName, PDCEmulator
 ./scripts/New-CorpLabStructure.ps1 -DomainDN 'DC=corp,DC=lab' -WhatIf
 ```
 
-Run from a domain-joined administrative PowerShell session. Confirm the returned domain DN matches the intended lab first. Use `-WhatIf` to preview changes, then remove `-WhatIf` only after review and backup.
+Run the script from a domain-joined administrative PowerShell session. The `-WhatIf` option previews actions. Confirm the target domain and review the proposed changes before running it without `-WhatIf`.
 
 ## Validation commands
 
@@ -56,11 +54,3 @@ Get-ADOrganizationalUnit -Filter * | Select-Object Name, DistinguishedName
 Get-ADGroup -Filter 'Name -like "GG_*"' | Select-Object Name, GroupScope, GroupCategory
 Get-Service NTDS,DNS
 ```
-
-## Identity hygiene
-
-- Keep separate standard and privileged accounts.
-- Use security groups as the permission-management unit where practical.
-- Disable lab accounts when no longer needed.
-- Never store passwords in scripts or Git.
-- Use lab-only demonstration accounts and avoid publishing production user lists.

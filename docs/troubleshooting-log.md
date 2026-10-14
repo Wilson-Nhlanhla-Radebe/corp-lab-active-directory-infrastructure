@@ -1,41 +1,45 @@
 # Troubleshooting log
 
-This log captures the issues and resolutions described in the supplied Phase 1 report. Revalidate against the live systems before applying the same changes elsewhere.
+This log records the main issues encountered in the lab and the outcomes of the troubleshooting work.
 
 ## 1. SSH to Ubuntu Server rejected
 
-**Symptom:** SSH could not establish a session from the bare-metal host.  
-**Checks:** OCI TCP/22 connectivity was tested; the SSH client was attempting keys other than the downloaded key. The intended key was explicitly selected, but authentication remained rejected.  
-**Finding:** The private-key file permissions were observed as `066`, allowing group/other access.  
-**Resolution:** Restrict key permissions with `chmod 600 <private-key-file>` and use the correct key path. The report records successful SSH access afterward.
+**Symptom:** SSH could not establish a session from the administration host.
+
+**Checks:** Network reachability to TCP 22 was tested. The SSH client was selecting keys other than the one associated with the instance.
+
+**Finding:** The intended private-key file had permissions set to `066`, making it accessible to group/other users.
+
+**Resolution:** The intended key was specified explicitly and its permissions were restricted with `chmod 600 <private-key-file>`. SSH access then succeeded.
 
 ## 2. GLPI web interface unreachable in browser
 
-**Symptom:** The browser could not reach GLPI although TCP/80 was reachable.  
-**Finding:** Browser behavior was forcing HTTPS on a lab endpoint configured for HTTP.  
-**Resolution recorded by the source:** Browser behavior was adjusted for the lab HTTP endpoint.  
-**Security note:** This is not a recommended production fix. Prefer HTTPS/TLS and avoid reducing browser protections for a public endpoint.
+**Symptom:** The browser could not load GLPI although TCP/80 was reachable.
+
+**Finding and resolution:** Browser HTTPS-upgrade behavior conflicted with the lab endpoint's HTTP configuration. Adjusting the access path restored the lab interface. This was a lab-specific workaround; HTTPS is recommended for a persistent deployment.
 
 ## 3. GLPI unable to communicate with Active Directory
 
-**Symptom:** Initial GLPI LDAP integration test failed.  
-**Investigation:** OCI security rules and name resolution were reviewed; the report says PHP was resolving the Domain Controller hostname differently than expected.  
-**Resolution:** Relevant network/security and hostname-resolution configuration was adjusted.  
-**Evidence:** The later LDAP-test screenshot reports TCP connection to `dc01.corp.lab:389`, base DN setup, LDAP URI check, bind authentication and directory search succeeded; 23 entries were found.
+**Symptom:** The initial LDAP integration test failed.
+
+**Investigation:** Oracle Cloud security rules and hostname resolution were reviewed. PHP was resolving the Domain Controller hostname differently than expected.
+
+**Resolution:** Network/security and hostname-resolution settings were adjusted. A later test confirmed TCP connectivity to `dc01.corp.lab:389`, Base DN and LDAP URI checks, bind authentication and directory search, with 23 entries returned.
 
 ## 4. Imported users missing expected group association
 
-**Symptom:** Users were imported, but department group membership was not initially reflected as expected in GLPI.  
-**Investigation:** Group membership was checked in AD and found to exist. Forced synchronization did not immediately fix the association.  
-**Resolution:** Affected users were manually associated with the intended groups where required, followed by another synchronization.  
-**Portfolio note:** This demonstrates troubleshooting experience but should not be presented as fully automated group provisioning.
+**Symptom:** Imported users did not initially show the expected department associations in GLPI.
 
-## 5. Standard-user RDP desktop blank/loading
+**Investigation:** AD group membership was checked and found to exist. Forced synchronization did not immediately correct the association.
 
-**Symptom:** A domain user's RDP authentication succeeded under a temporary administrative test, but the session remained blank/loading rather than displaying a usable desktop.  
-**Security action:** The test user was removed from the Administrators group; broad administrative privilege was not retained as a workaround.  
-**Status:** **Unresolved — pending investigation.** The issue was intentionally not changed during the documented baseline verification.
+**Resolution:** Affected users were manually associated with the intended groups where required, then synchronization was retried.
 
-## 6. Finance share access denied
+## 5. Domain-user RDP desktop — resolved
 
-A screenshot documents a Finance user unable to access the Finance folder. The source report also marks one Finance access test PASS in its verification matrix, creating a conflict. Per-department positive and negative tests should be repeated and the actual ACL/effective access recorded before claiming file permissions are fully validated.
+**Symptom:** A domain user's RDP authentication succeeded, but the session remained on a blank/loading screen rather than displaying a usable desktop.
+
+**Resolution status:** **Resolved.** Domain-user sessions were confirmed working on 14 October 2026.
+
+## 6. Finance share access
+
+A Finance-user access-denied screenshot conflicts with a PASS result in the verification worksheet. The actual effective access remains inconclusive until the Finance scenario and the remaining departmental allow/deny tests are repeated and recorded.
