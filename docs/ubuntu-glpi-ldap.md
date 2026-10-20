@@ -13,7 +13,7 @@ The lab used HTTP/TCP 80 for browser access, SSH/TCP 22 for Ubuntu administratio
 
 ## LDAP connection test
 
-The captured [GLPI LDAP test](../screenshots/glpi-ldap-connection-test.jpg) shows:
+The captured [GLPI LDAP test](../screenshots/glpi-ldap-connection-test.png) shows:
 
 1. TCP connection to `dc01.corp.lab` on port 389 succeeded.
 2. Base DN `DC=corp,DC=lab` was configured.
@@ -21,7 +21,9 @@ The captured [GLPI LDAP test](../screenshots/glpi-ldap-connection-test.jpg) show
 4. Bind authentication succeeded.
 5. Directory search succeeded and returned 23 entries.
 
-Other screenshots show directory users imported into GLPI, user synchronization, ticket handling and offboarding-related user records. These images represent the system at capture time rather than current cloud health.
+These results document that test at capture time; they do not establish current GLPI or LDAP availability. The original screenshot retains a historical server IP in the browser address bar.
+
+Other screenshots show a GLPI user list, one directory-related group association, a ticket conversation and an offboarding ticket. They represent individual examples at capture time rather than continuous synchronization, complete workflow automation or current cloud health.
 
 ## Security considerations
 

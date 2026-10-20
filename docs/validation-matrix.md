@@ -6,8 +6,8 @@ This matrix distinguishes implemented configuration from behavior supported by t
 |---|---|---|---|
 | Departmental OU structure | Five departments present | PASS | AD structure screenshot and implementation record |
 | Departmental users and groups | Accounts organised by department and assigned to relevant groups | PASS (recorded) | Directory structure and representative group evidence |
-| SMB share definitions | Department shares exist | PASS | PowerShell share output screenshot |
-| Group-based share ACL configuration | Access assigned through department groups | CONFIGURED | Share-access and ACL screenshots |
+| SMB share definitions | Department shares exist | PASS | PowerShell `Get-SmbShare` inventory screenshot |
+| Group-based share ACL configuration | Access assigned through department groups | CONFIGURED; REVIEW REQUIRED | Finance folder ACL view includes `GG_Finance` and `CORP\Users` read-type rights; an inspected alternate share-access view showed `Everyone: Allow / Full` on Finance. These are configuration observations, not effective-access results. |
 | IT user reaches IT folder | Access allowed | NOT TESTED | No result recorded in the verification worksheet |
 | HR user reaches HR folder | Access allowed | NOT TESTED | No result recorded in the verification worksheet |
 | Marketing user reaches Marketing folder | Access allowed | NOT TESTED | No result recorded in the verification worksheet |

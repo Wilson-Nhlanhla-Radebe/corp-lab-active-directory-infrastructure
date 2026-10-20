@@ -1,18 +1,18 @@
 # Evidence index
 
-Ten selected screenshots are included to show the main infrastructure components and service-desk workflows. The images document system state at the time they were captured.
+Ten selected original PNG screenshots document system state and workflow examples at the time they were captured. They are ordered from directory structure through offboarding.
 
 | Evidence file | What it shows | Interpretation |
 |---|---|---|
-| [`ad-organizational-structure.jpg`](../screenshots/ad-organizational-structure.jpg) | Active Directory domain and departmental OU structure | Shows directory organisation at capture time |
-| [`department-folder-acl.jpg`](../screenshots/department-folder-acl.jpg) | Windows folder permission configuration | Shows configured ACLs, not effective access for every user |
-| [`powershell-smb-share-access.jpg`](../screenshots/powershell-smb-share-access.jpg) | PowerShell output for SMB shares and access | Supports the share-configuration record; full allow/deny testing is incomplete |
-| [`glpi-ldap-connection-test.jpg`](../screenshots/glpi-ldap-connection-test.jpg) | TCP/389, Base DN, LDAP URI, bind and search checks | All shown as successful; 23 entries returned |
-| [`glpi-directory-users-imported.jpg`](../screenshots/glpi-directory-users-imported.jpg) | Directory users imported into GLPI | Demonstrates import state at capture time |
-| [`glpi-directory-sync.jpg`](../screenshots/glpi-directory-sync.jpg) | GLPI directory-user synchronization | Shows the synchronization workflow |
-| [`glpi-ticket-resolution.jpg`](../screenshots/glpi-ticket-resolution.jpg) | GLPI ticket-resolution workflow | Demonstrates a ticket workflow, not every possible service-desk case |
-| [`ad-user-disabled.jpg`](../screenshots/ad-user-disabled.jpg) | Active Directory account disabled during offboarding | Shows the account state at capture time |
-| [`oci-security-rule-configuration.jpg`](../screenshots/oci-security-rule-configuration.jpg) | Oracle Cloud security-rule configuration | Shows a network-rule configuration view |
-| [`glpi-offboarding-user-record.jpg`](../screenshots/glpi-offboarding-user-record.jpg) | GLPI user record associated with offboarding | Shows GLPI-side account lifecycle handling |
+| [`ad-organizational-structure.png`](../screenshots/ad-organizational-structure.png) | `corp.lab` domain, departmental OUs and security groups | Shows directory organisation at capture time; not current domain health |
+| [`powershell-smb-share-inventory.png`](../screenshots/powershell-smb-share-inventory.png) | PowerShell `Get-SmbShare` output with share names and paths | Inventory only; it does not show effective permissions |
+| [`department-folder-acl.png`](../screenshots/department-folder-acl.png) | Finance folder ACL dialog | Shows configured entries including `GG_Finance` and a `CORP\Users` read-type entry; not effective access for every user |
+| [`oci-security-rule-configuration.png`](../screenshots/oci-security-rule-configuration.png) | One OCI ingress rule for TCP 53 from `10.0.0.0/24` | One configuration view, not a complete or current security-rule inventory |
+| [`glpi-ldap-connection-test.png`](../screenshots/glpi-ldap-connection-test.png) | TCP/389, Base DN, LDAP URI, bind and search checks | This captured test succeeded and returned 23 entries; it does not establish current service availability |
+| [`glpi-directory-users-imported.png`](../screenshots/glpi-directory-users-imported.png) | User list shown in GLPI | Shows user records at capture time; not proof each row came from the captured LDAP search |
+| [`glpi-directory-sync.png`](../screenshots/glpi-directory-sync.png) | GLPI user view with a `GG_Marketing` group association | One example of directory-related user state; not proof of continuous or fully automated synchronization |
+| [`glpi-ticket-resolution.png`](../screenshots/glpi-ticket-resolution.png) | Ticket conversation about shared-folder access | One ticket example; the image does not show an independent retest or complete workflow automation |
+| [`ad-user-disabled.png`](../screenshots/ad-user-disabled.png) | Active Directory confirmation that one account was disabled | Shows one account state; does not prove all sessions or downstream access were revoked |
+| [`glpi-offboarding-user-record.png`](../screenshots/glpi-offboarding-user-record.png) | GLPI offboarding ticket marked solved | One workflow example; does not prove every offboarding action is automated or independently verified |
 
-Browser address details and the cloud resource URL were redacted from the relevant screenshots. The evidence does not establish current cloud resource availability. See the [validation matrix](validation-matrix.md) for test status and remaining gaps.
+The original PNGs retain the historical browser address and account details visible in their source captures; they were not redacted or altered. No credential was visible in the selected images during visual review. Confirm that displayed identities are synthetic before reusing them. The evidence does not establish current cloud resource availability. See the [validation matrix](validation-matrix.md) for test status and remaining gaps.

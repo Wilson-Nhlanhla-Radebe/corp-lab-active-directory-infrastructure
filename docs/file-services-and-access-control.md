@@ -10,7 +10,9 @@ The Windows Server hosts a top-level Company Folder / Company Data directory wit
 - Management
 - Finance
 
-Screenshots document SMB share creation, share-ACL inspection, mapped-drive configuration and folder permissions. Departmental security groups are used as the intended permission-management unit.
+The selected screenshots show an SMB share inventory and the Finance folder's NTFS permission dialog. The inventory lists share names and paths; it does not show share permissions or effective user access. The folder dialog shows `GG_Finance` and a `CORP\Users` entry with read-type rights. Review whether that broader entry is intended. Departmental security groups are the intended permission-management unit, but the screenshots do not prove that access is restricted to those groups.
+
+An inspected alternate `Get-SmbShareAccess` screenshot showed `Everyone` with `Allow / Full` on the Finance share. It is excluded from the portfolio because it cannot support a restricted-access claim. Share-level and NTFS permissions combine to determine effective access, so this finding requires review against the current configuration; the historical screenshot alone does not establish current exposure.
 
 ## Access model
 
@@ -26,7 +28,7 @@ Group-based access makes onboarding and offboarding easier to maintain because r
 
 ## Validation status
 
-The available evidence demonstrates share and ACL configuration, but does not establish effective access for every department. A Finance-user screenshot shows access denied, while the verification worksheet records one Finance access test as PASS. Those results conflict, so Finance access requires a repeat test. The current evidence also does not record the IT, HR, Marketing and Management positive tests or the negative cross-department test.
+The available evidence shows share inventory and one folder ACL view, but does not establish effective access for any department. A Finance-user screenshot shows access denied, while the verification worksheet records one Finance access test as PASS. Those results conflict, so Finance access requires a repeat test. The current evidence also does not record the IT, HR, Marketing and Management positive tests or the negative cross-department test.
 
 | Test | Expected result | Recorded status |
 |---|---|---|

@@ -22,7 +22,7 @@ The documented lab configuration used HTTP/TCP 80 for GLPI and LDAP/TCP 389 for 
 
 ## Evidence handling
 
-Published screenshots use redacted browser address details for the lab's public IP and cloud resource URL. Demonstration account data should remain synthetic and should not be reused for real staff, student or customer accounts.
+The selected original screenshots retain historical browser address details, a cloud resource identifier and visible account names; these details were not redacted. No credential was visible in the selected images during visual review. Confirm that demonstration identities are synthetic before using them in public examples, and do not reuse real staff, student or customer accounts. The screenshots do not establish whether the historical server address is still active.
 
 ## Before publishing
 

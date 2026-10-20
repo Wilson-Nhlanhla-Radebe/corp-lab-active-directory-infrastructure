@@ -5,9 +5,9 @@
 | Flow | Port / protocol | Purpose and status |
 |---|---|---|
 | Administration host → Ubuntu Server | TCP 22 / SSH | Ubuntu administration; SSH access succeeded after selecting the correct key and restricting its permissions to `0600` |
-| Administration host → GLPI host | TCP 80 / HTTP | Browser access used by the lab; address details are redacted in screenshots |
+| Administration host → GLPI host | TCP 80 / HTTP | Browser access used by the lab; some original screenshots show the historical server IP |
 | GLPI host → `DC01` | TCP 389 / LDAP | Captured LDAP test shows successful connection, bind and search |
-| Corporate subnet → DNS service | TCP/UDP 53 as required | A cloud rule screenshot documents DNS traffic from `10.0.0.0/24`; the complete current rule set is not represented by that single image |
+| Corporate subnet → DNS service | TCP/UDP 53 as required | One OCI screenshot shows an ingress rule for TCP 53 from `10.0.0.0/24`; it is not a complete or current rule inventory |
 | Windows domain resources | AD DS, DNS and SMB-related traffic | Departmental share and Active Directory administration are documented; the table is not a complete Active Directory port inventory |
 
 ## Network security

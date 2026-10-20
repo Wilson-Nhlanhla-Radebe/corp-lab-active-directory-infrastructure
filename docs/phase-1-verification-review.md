@@ -12,7 +12,7 @@
 |---|---|---|
 | AD domain and departmental structure | Demonstrated | `corp.lab`, five departmental OUs and directory administration are shown. |
 | GLPI LDAP integration | Pass at capture time | Test screen shows TCP/389, Base DN, LDAP URI, bind and search succeeded; 23 entries found. |
-| GLPI directory import and synchronization | Demonstrated | Screenshots show imported users and synchronization activity. |
+| GLPI directory import and user association | Demonstrated | Screenshots show a GLPI user list and one user group association; they do not prove continuous or fully automated synchronization. |
 | Representative GLPI user authentication | Pass recorded | The lab verification records successful authentication for representative IT, Finance and Marketing users. |
 | Ticket workflow | Demonstrated | Screenshots show ticket submission/visibility and ticket resolution. The initial verification worksheet did not record the ticket-ID check as tested. |
 | Account lifecycle | Demonstrated | Evidence shows account reset/disablement and GLPI offboarding activity. |

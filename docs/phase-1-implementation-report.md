@@ -10,11 +10,11 @@
 
 Phase 1 established a simulated corporate IT environment using Windows Server 2022 Standard and Ubuntu Server. `DC01` provides Active Directory Domain Services and DNS for `corp.lab`. The Ubuntu server hosts Apache2, PHP, MariaDB and GLPI. Five departmental organisational units, demonstration users, security groups and shared folders were configured.
 
-GLPI was integrated with Active Directory through LDAP. A captured connection test shows successful TCP connectivity to `dc01.corp.lab:389`, Base DN and LDAP URI checks, bind authentication and directory search, with 23 entries returned. Other screenshots document directory-user imports and synchronization, ticket handling and account lifecycle workflows.
+GLPI was integrated with Active Directory through LDAP. A captured connection test shows successful TCP connectivity to `dc01.corp.lab:389`, Base DN and LDAP URI checks, bind authentication and directory search, with 23 entries returned. Other screenshots show a GLPI user list, a user group association, a ticket conversation, one account disablement and an offboarding ticket. They document examples rather than complete automation or current service state.
 
 ## Active Directory and file services
 
-The domain uses five departments: IT, HR, Marketing, Management and Finance. The documented structure contains 19 demonstration accounts: four each in IT, HR, Marketing and Management, and three in Finance. Departmental groups form the basis of shared-folder permissions. Screenshots show the departmental directory structure, SMB shares, mapped-drive access and ACL configuration.
+The domain uses five departments: IT, HR, Marketing, Management and Finance. The documented structure contains 19 demonstration accounts: four each in IT, HR, Marketing and Management, and three in Finance. Departmental groups are the intended basis of shared-folder permissions. The selected screenshots show the directory structure, SMB share inventory and one folder ACL view; they do not demonstrate effective access for each department.
 
 The folder configuration is documented, but the complete effective-access test matrix is not. The available records disagree on the Finance access result, so the result should be treated as inconclusive until all positive and negative tests are repeated.
 

@@ -11,10 +11,10 @@ A simulated corporate IT environment built to practise Windows and Linux adminis
 | Oracle Cloud Infrastructure | Hosts the Windows and Linux virtual machines and network controls | Deployed; screenshots document the configuration at the time of testing |
 | Windows Server 2022 Standard (`DC01`) | Active Directory Domain Services and DNS for `corp.lab` | Domain and departmental structure configured |
 | Active Directory | Five departmental OUs, users and security groups | 19 demonstration accounts across IT, HR, Marketing, Management and Finance |
-| Windows file services | Departmental folders, SMB shares and group-based permissions | Shares and ACL configuration documented; full per-department access testing remains incomplete |
+| Windows file services | Departmental folders, SMB shares and ACL configuration | Share inventory and one folder ACL are documented; effective-access testing remains incomplete |
 | Ubuntu Server | GLPI application host | Apache2, PHP, MariaDB and GLPI deployed |
-| GLPI LDAP integration | Connects GLPI to Active Directory | Captured test passed TCP connection, LDAP URI, bind and search checks; 23 entries returned |
-| GLPI service desk | User import, authentication and ticket workflows | Screenshots document imported users, synchronization, ticket resolution and offboarding activity |
+| GLPI LDAP integration | Connects GLPI to Active Directory | One captured test passed TCP connection, LDAP URI, bind and search checks; 23 entries returned |
+| GLPI service desk | User import, authentication and ticket workflows | Screenshots show user records, a group association, ticket handling and an offboarding example |
 
 ## Architecture
 
@@ -27,47 +27,83 @@ flowchart LR
   CLIENT[Admin host] -->|HTTP TCP 80 in lab configuration| UB
   CLIENT -->|SSH TCP 22| UB
   UB -->|LDAP TCP 389| DC
-  DC --> SHARES[Departmental SMB shares<br/>Group-based permissions]
+  DC --> SHARES[Departmental SMB shares<br/>ACL configuration]
 ```
 
-The diagram shows the main systems and documented communication paths. The GLPI LDAP test screenshot records a successful connection to `dc01.corp.lab` on TCP 389, with a search returning 23 entries. HTTP/80 and LDAP/389 describe the lab configuration at capture time, not recommended defaults for a publicly accessible production deployment.
+The diagram shows the main systems and documented communication paths. One captured GLPI LDAP test records a successful connection to `dc01.corp.lab` on TCP 389, with a search returning 23 entries; it does not establish current service availability. HTTP/80 and LDAP/389 describe the lab configuration at capture time, not recommended defaults for a publicly accessible production deployment.
 
 ## Evidence
 
 ### Active Directory structure
 
-![Active Directory OU structure](screenshots/ad-organizational-structure.jpg)
+![Active Directory domain, OUs and security groups](screenshots/ad-organizational-structure.png)
 
-### SMB shares and file permissions
+This view shows the `corp.lab` directory structure at capture time.
 
-![SMB share access output](screenshots/powershell-smb-share-access.jpg)
+### SMB share inventory
 
-![Department folder ACL](screenshots/department-folder-acl.jpg)
+![PowerShell SMB share inventory](screenshots/powershell-smb-share-inventory.png)
+
+The output lists share names and paths. It does not show effective permissions for any user.
+
+### Folder permissions
+
+![Finance folder ACL configuration](screenshots/department-folder-acl.png)
+
+This Finance ACL view includes `GG_Finance` and a `CORP\Users` read-type entry. It records configuration only; it does not establish every user's effective access, and the broader entry needs review.
+
+### OCI network security configuration
+
+![OCI ingress rule configuration](screenshots/oci-security-rule-configuration.png)
+
+This is one rule-configuration view showing TCP 53 from `10.0.0.0/24`; it is not a complete or current security-rule inventory.
 
 ### GLPI LDAP integration
 
-![GLPI LDAP test results](screenshots/glpi-ldap-connection-test.jpg)
+![GLPI LDAP connection test](screenshots/glpi-ldap-connection-test.png)
 
-The test screen shows successful TCP connectivity, Base DN configuration (`DC=corp,DC=lab`), LDAP URI validation, bind authentication and directory search. Browser address details have been redacted from the published screenshot.
+The captured test shows TCP connectivity, Base DN configuration (`DC=corp,DC=lab`), LDAP URI validation, bind authentication and a search returning 23 entries. It records that test only, not current service availability.
 
-### Directory users and service-desk workflows
+### Imported directory users
 
-![Imported directory users](screenshots/glpi-directory-users-imported.jpg)
+![Directory users shown in GLPI](screenshots/glpi-directory-users-imported.png)
 
-![GLPI ticket resolution](screenshots/glpi-ticket-resolution.jpg)
+The GLPI list shows user records at capture time; it does not prove every listed account came from the captured LDAP search.
 
-![Disabled Active Directory account](screenshots/ad-user-disabled.jpg)
+### Directory synchronization
 
-The [evidence index](docs/evidence-index.md) describes the ten screenshots included in this repository.
+![GLPI user group association](screenshots/glpi-directory-sync.png)
+
+This user view shows a `GG_Marketing` group association. It is an example of directory-related user state, not proof of continuous or fully automated synchronization.
+
+### Ticket handling
+
+![GLPI ticket conversation](screenshots/glpi-ticket-resolution.png)
+
+This is one ticket conversation about shared-folder access, with a helpdesk response and a user approval. It does not prove the access issue was independently retested or that all ticket workflows are automated.
+
+### Active Directory account disablement
+
+![Active Directory account disabled](screenshots/ad-user-disabled.png)
+
+The confirmation dialog records one account being disabled; it does not prove all sessions or downstream access were revoked.
+
+### GLPI offboarding
+
+![GLPI offboarding ticket](screenshots/glpi-offboarding-user-record.png)
+
+This is one GLPI offboarding ticket marked solved, not evidence that every offboarding action is automated or independently verified.
+
+The [evidence index](docs/evidence-index.md) summarizes the ten screenshots included here. The PNG files preserve the original archive bytes. Several GLPI captures show a historical server IP and account names; the screenshots do not establish whether the address is still active.
 
 ## Work demonstrated
 
 - Windows Server 2022 administration and Active Directory configuration.
 - Departmental OU, user and security-group management.
-- SMB share administration and group-based access control.
+- SMB share administration and folder ACL configuration; effective access testing remains incomplete.
 - Linux server administration and deployment of Apache2, PHP, MariaDB and GLPI.
 - LDAP connection testing, bind authentication and directory search.
-- GLPI directory imports, user synchronization, ticket handling and account lifecycle workflows.
+- GLPI directory user records and group association, plus example ticket and offboarding workflows.
 - Troubleshooting SSH access, cloud security rules, hostname resolution and directory synchronization.
 
 ## Current status and limitations
