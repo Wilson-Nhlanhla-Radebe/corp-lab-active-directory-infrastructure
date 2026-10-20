@@ -20,7 +20,7 @@
 | Departmental shared-folder access | Partially verified | Configuration is shown, but some department-level access tests are not recorded. The Finance allow/deny result is inconsistent across the available records. |
 | Domain-user RDP sessions | Resolved | Domain-user desktop sessions were working as of 14 October 2026. |
 | Windows client domain join | Not verified | No successful domain-join result is included in this evidence set. |
-| Current OCI resource state | Not checked during this update | The screenshots are historical captures and do not confirm the instances are running now. |
+| Current OCI resource state | Not verified | The screenshots are historical captures; present instance status is unknown. |
 
 ## File-access validation gap
 
@@ -28,9 +28,8 @@ The verification worksheet has incomplete entries for the IT, HR, Marketing and 
 
 ## Outstanding validation items
 
-1. Test one normal account from each department against its own share.
-2. Test at least one user against a restricted share outside their department.
-3. Record the result alongside both share ACL and NTFS ACL evidence.
-4. Confirm ticket-reference generation if that requirement is needed for the portfolio.
-5. Capture a successful Windows client domain join if that work is completed.
-6. Query OCI and service status directly before making claims about current availability.
+- Successful own-share access tests for each department are not recorded.
+- A cross-department denial test and its corresponding share and NTFS ACL evidence are not recorded.
+- Ticket-reference generation was not verified in the baseline worksheet.
+- A successful Windows client domain join is not captured.
+- Current OCI resource and service availability was not checked.

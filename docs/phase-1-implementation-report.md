@@ -16,7 +16,7 @@ GLPI was integrated with Active Directory through LDAP. A captured connection te
 
 The domain uses five departments: IT, HR, Marketing, Management and Finance. The documented structure contains 19 demonstration accounts: four each in IT, HR, Marketing and Management, and three in Finance. Departmental groups are the intended basis of shared-folder permissions. The selected screenshots show the directory structure, SMB share inventory and one folder ACL view; they do not demonstrate effective access for each department.
 
-The folder configuration is documented, but the complete effective-access test matrix is not. The available records disagree on the Finance access result, so the result should be treated as inconclusive until all positive and negative tests are repeated.
+The folder configuration is documented, but the complete effective-access test matrix is not. The available records disagree on the Finance access result, which remains inconclusive; the positive and negative department-level tests are not fully recorded.
 
 ## Ubuntu and GLPI
 

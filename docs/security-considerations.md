@@ -20,15 +20,6 @@ The lab demonstrates directory services, shared-folder access, remote administra
 
 The documented lab configuration used HTTP/TCP 80 for GLPI and LDAP/TCP 389 for directory integration. For a persistent environment, use HTTPS for the web interface and LDAPS or StartTLS with certificate validation for directory traffic. Keep directory and file services on trusted networks.
 
-## Evidence handling
+## Included screenshots
 
-The selected original screenshots retain historical browser address details, a cloud resource identifier and visible account names; these details were not redacted. No credential was visible in the selected images during visual review. Confirm that demonstration identities are synthetic before using them in public examples, and do not reuse real staff, student or customer accounts. The screenshots do not establish whether the historical server address is still active.
-
-## Before publishing
-
-- Never commit passwords, tokens, private keys, WireGuard private-key material, OCI authentication files, LDAP bind secrets, database credentials or session cookies.
-- Do not publish database dumps, credential-bearing logs, or real employee, student or customer information.
-- Visually inspect every screenshot for account names, browser addresses, cloud resource identifiers and other sensitive details. Ensure all demonstration identities are synthetic.
-- Keep secrets outside Git and use least-privilege service identities for administration and application integrations.
-- If a real secret is committed or pushed, revoke or rotate it immediately. Deleting it in a later commit does not make the exposed credential safe.
-- Run secret scans and review the complete staged diff before publishing changes.
+The selected original screenshots retain historical browser address details, a cloud resource identifier and visible account names; these details were not altered. Visual review did not identify credentials in the selected images. The project evidence does not establish whether the displayed identities are synthetic or whether the historical server address is still active.

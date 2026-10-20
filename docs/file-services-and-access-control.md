@@ -10,9 +10,9 @@ The Windows Server hosts a top-level Company Folder / Company Data directory wit
 - Management
 - Finance
 
-The selected screenshots show an SMB share inventory and the Finance folder's NTFS permission dialog. The inventory lists share names and paths; it does not show share permissions or effective user access. The folder dialog shows `GG_Finance` and a `CORP\Users` entry with read-type rights. Review whether that broader entry is intended. Departmental security groups are the intended permission-management unit, but the screenshots do not prove that access is restricted to those groups.
+The selected screenshots show an SMB share inventory and the Finance folder's NTFS permission dialog. The inventory lists share names and paths; it does not show share permissions or effective user access. The folder dialog shows `GG_Finance` and a `CORP\Users` entry with read-type rights. The intended scope of that broader entry is not established by the available evidence. Departmental security groups are the intended permission-management unit, but the screenshots do not prove that access is restricted to those groups.
 
-An inspected alternate `Get-SmbShareAccess` screenshot showed `Everyone` with `Allow / Full` on the Finance share. It is excluded from the portfolio because it cannot support a restricted-access claim. Share-level and NTFS permissions combine to determine effective access, so this finding requires review against the current configuration; the historical screenshot alone does not establish current exposure.
+An inspected alternate `Get-SmbShareAccess` screenshot showed `Everyone` with `Allow / Full` on the Finance share. It is excluded from the portfolio because it cannot support a restricted-access claim. Share-level and NTFS permissions combine to determine effective access; the historical screenshot does not establish current exposure or the present configuration.
 
 ## Access model
 
@@ -28,7 +28,7 @@ Group-based access makes onboarding and offboarding easier to maintain because r
 
 ## Validation status
 
-The available evidence shows share inventory and one folder ACL view, but does not establish effective access for any department. A Finance-user screenshot shows access denied, while the verification worksheet records one Finance access test as PASS. Those results conflict, so Finance access requires a repeat test. The current evidence also does not record the IT, HR, Marketing and Management positive tests or the negative cross-department test.
+The available evidence shows share inventory and one folder ACL view, but does not establish effective access for any department. A Finance-user screenshot shows access denied, while the verification worksheet records one Finance access test as PASS. Those results conflict, so Finance effective access remains unresolved. The current evidence also lacks recorded IT, HR, Marketing and Management positive tests and a negative cross-department test.
 
 | Test | Expected result | Recorded status |
 |---|---|---|
@@ -39,4 +39,4 @@ The available evidence shows share inventory and one folder ACL view, but does n
 | Finance user → Finance share | Allow | Conflicting evidence; repeat test needed |
 | User → restricted share outside their department | Deny, unless explicitly authorised | Not tested in available matrix |
 
-For a complete validation, compare SMB share permissions and NTFS permissions, then test with ordinary department accounts. Record the effective result for each allow and deny case.
+A complete validation compares SMB share permissions and NTFS permissions, tests ordinary department accounts against each allow and deny case, and records the effective result.

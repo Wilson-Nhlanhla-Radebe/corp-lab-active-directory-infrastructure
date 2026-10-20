@@ -29,4 +29,4 @@ ssh -i <private-key-file> ubuntu@<server-address>
 
 ## WireGuard
 
-Earlier lab notes reference a tunnel named `corp_lab_tunnel`, UDP port `57058`, and tunnel addresses `10.10.0.1` and `10.10.0.2`. This repository does not include a current peer-handshake capture, route table or DNS verification for the tunnel, so its present operational state is not established here.
+The configured tunnel is named `corp_lab_tunnel`, uses UDP port `57058`, and has tunnel addresses `10.10.0.1` and `10.10.0.2`. This repository does not include a current peer-handshake capture, route table or DNS verification for the tunnel, so its present operational state is not established here.

@@ -50,7 +50,7 @@ The output lists share names and paths. It does not show effective permissions f
 
 ![Finance folder ACL configuration](screenshots/department-folder-acl.png)
 
-This Finance ACL view includes `GG_Finance` and a `CORP\Users` read-type entry. It records configuration only; it does not establish every user's effective access, and the broader entry needs review.
+This Finance ACL view includes `GG_Finance` and a `CORP\Users` read-type entry. It records configuration only; it does not establish every user's effective access, and the intended scope of the broader entry is not established by this capture.
 
 ### OCI network security configuration
 
@@ -111,7 +111,7 @@ The [evidence index](docs/evidence-index.md) summarizes the ten screenshots incl
 - **RDP:** Domain-user desktop sessions are working as of 14 October 2026. The earlier blank/loading-session problem is resolved.
 - **File permissions:** Share and ACL configuration is documented. The available evidence conflicts on the Finance user's effective access, and complete allow/deny tests for all departments are not recorded.
 - **Windows client domain join:** Not verified in the current evidence set.
-- **WireGuard:** Earlier lab notes contain tunnel configuration details, but the current peer handshake and routes are not part of the evidence in this repository.
+- **WireGuard:** The configured tunnel is documented in [networking and WireGuard](docs/networking-and-wireguard.md), but its current peer handshake and routes are not evidenced in this repository.
 - **Cloud status:** Screenshots capture the environment during testing; they do not indicate whether the OCI instances are currently running.
 
 ## Documentation

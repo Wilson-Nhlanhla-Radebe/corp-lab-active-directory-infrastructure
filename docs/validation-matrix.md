@@ -25,8 +25,8 @@ This matrix distinguishes implemented configuration from behavior supported by t
 | Ubuntu services and documented ports | Services available | PASS (recorded at baseline) | Historical service/connectivity checks |
 | Domain-user RDP desktop | A usable desktop session opens | RESOLVED | Working as of 14 October 2026 |
 | Windows client domain join | Client is joined to `corp.lab` | NOT VERIFIED | No successful join result in this evidence set |
-| Current OCI resource state | Instances and services running now | NOT CHECKED | Requires direct current-state verification |
+| Current OCI resource state | Instances and services running now | NOT CHECKED | No live-state evidence is recorded |
 
-## Remaining validation priority
+## Outstanding validation
 
-Complete the share-access allow/deny tests and reconcile the Finance result. Retest current services only if the cloud environment is still available. Record new results with the test date and supporting evidence.
+The departmental share-access allow/deny tests remain incomplete, and the conflicting Finance result is unresolved. Current service availability has not been verified. New test results are not present in this evidence set.

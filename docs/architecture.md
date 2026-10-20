@@ -43,4 +43,4 @@ flowchart TB
 
 One GLPI LDAP test captured during the project shows a successful connection to `dc01.corp.lab:389`, successful Base DN and LDAP URI checks, successful bind authentication and a search that returned 23 entries. This is evidence of that captured test, not current service availability. The selected share screenshots show inventory and one folder ACL view; neither proves effective access. The full positive/negative user access matrix remains incomplete, and the Finance evidence conflicts.
 
-Earlier lab notes reference a WireGuard tunnel named `corp_lab_tunnel`, UDP port `57058`, and tunnel addresses `10.10.0.1` and `10.10.0.2`. Current peer-handshake, route and DNS status are not demonstrated by the screenshots in this repository.
+The configured WireGuard tunnel is named `corp_lab_tunnel`, uses UDP port `57058`, and has tunnel addresses `10.10.0.1` and `10.10.0.2`. Current peer-handshake, route and DNS status are not demonstrated by the screenshots in this repository.
